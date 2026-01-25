@@ -58,9 +58,6 @@ IMPORTANT:
 - Build conversation context from the history
 - If mood/intent unclear, ask clarifying questions first
 
-CRISIS RESOURCES (share when needed):
-- 988 Suicide & Crisis Lifeline
-- Crisis Text Line: Text HOME to 741741
 """
 
 
@@ -122,7 +119,7 @@ class OrchestratorAgent(BaseAgent):
             tools = self.get_tools()
             prompt = self.get_prompt(state)
 
-            agent = create_react_agent(self.model, tools, state_modifier=prompt)
+            agent = create_react_agent(self.model, tools, prompt=prompt)
 
             result = agent.invoke({"messages": state.get("messages", []) if state else []})
 

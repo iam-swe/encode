@@ -240,6 +240,26 @@ class MultiAgentWorkflow:
         result = self.process_query(user_message)
         return result.get("response", "I'm here to listen. How are you feeling?")
 
+    def get_greeting(self) -> str:
+        """Get initial greeting from the orchestrator."""
+        try:
+            model = self.orchestrator_node.orchestrator_agent.model
+
+            # Simple direct call to get greeting - no tools needed
+            response = model.invoke(
+                "You are a warm, supportive therapy assistant. Generate a brief, welcoming greeting for a new user starting a therapy session. Ask how they're feeling today. Keep it to 1-2 sentences."
+            )
+
+            if response and response.content:
+                return response.content
+
+
+            return "Hi there! I'm here to support you. How are you feeling today?"
+
+        except Exception as e:
+            logger.error("Failed to get greeting", error=str(e))
+            return "Hi there! I'm here to support you. How are you feeling today?"
+
     def reset(self) -> None:
         """Reset the conversation state and start a new conversation."""
         self._state = None

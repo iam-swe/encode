@@ -54,7 +54,7 @@ class OrchestratorNode:
             agent = create_react_agent(
                 self.orchestrator_agent.model,
                 tools,
-                state_modifier=prompt,
+                prompt=prompt,
             )
 
             # Prepare state for orchestrator

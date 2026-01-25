@@ -41,19 +41,45 @@ def run(query: str, conversation_id: str | None = None) -> str:
     return response
 
 
-def start_session(conversation_id: str | None = None) -> None:
-    """Start a therapy session with an initial greeting, then process one user message."""
+def run_interactive_session(conversation_id: str | None = None) -> None:
+    """Run an interactive therapy session with continuous conversation."""
     workflow = create_app(conversation_id)
 
-    # Get initial greeting from orchestrator
-    initial_response = workflow.chat("Hello")
-    print(f"\nTherapist: {initial_response}\n")
+    print("\n" + "=" * 50)
+    print("Welcome to Encode Therapy System")
+    print("Type 'quit' or 'exit' to end the session")
+    print("=" * 50 + "\n")
 
-    # Wait for user input
-    user_input = input("You: ").strip()
-    if user_input:
-        response = workflow.chat(user_input)
-        print(f"\nTherapist: {response}\n")
+    # Get initial greeting from orchestrator (empty message triggers greeting)
+    initial_response = workflow.get_greeting()
+    print(f"Therapist: {initial_response}\n")
+
+    # Interactive conversation loop
+    while True:
+        try:
+            user_input = input("You: ").strip()
+
+            if not user_input:
+                continue
+
+            if user_input.lower() in ["quit", "exit", "bye", "goodbye"]:
+                print("\nTherapist: Take care of yourself. Remember, it's okay to reach out whenever you need support. Goodbye!\n")
+                break
+
+            response = workflow.chat(user_input)
+            print(f"\nTherapist: {response}\n")
+
+        except KeyboardInterrupt:
+            print("\n\nTherapist: Take care! Feel free to come back anytime.\n")
+            break
+        except EOFError:
+            print("\n\nSession ended.\n")
+            break
+
+
+def start_session(conversation_id: str | None = None) -> None:
+    """Start a therapy session (alias for run_interactive_session)."""
+    run_interactive_session(conversation_id)
 
 
 if __name__ == "__main__":

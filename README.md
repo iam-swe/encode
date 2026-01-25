@@ -1,6 +1,6 @@
 # Encode - Multi-Agent Therapy System
 
-A multi-agent therapeutic support platform using LangGraph
+A multi-agent therapeutic support platform using LangGraph.
 
 ## Architecture
 
