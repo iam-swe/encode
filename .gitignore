@@ -1,0 +1,19 @@
+
+# --- Python cache ---
+__pycache__/
+**/__pycache__/
+*.pyc
+**/*.pyc
+
+# --- Env ---
+.env
+.env.*
+
+# --- IDE ---
+.idea/
+.idea/**
+*.iml
+
+
+# --- OS ---
+.DS_Store
