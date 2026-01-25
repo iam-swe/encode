@@ -1,13 +1,46 @@
 [project]
 name = "encode"
 version = "0.1.0"
-description = "Add your description here"
+description = "Multi-Agent Therapy System - A therapeutic support platform using LangGraph"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "langchain>=1.2.7",
-    "langchain-google-genai>=4.2.0",
-    "langchain-openai>=1.1.7",
-    "langgraph>=1.0.7",
-    "python-dotenv>=1.2.1",
+    "langchain>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-google-genai>=2.0.0",
+    "langchain-openai>=0.2.0",
+    "langgraph>=0.2.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "structlog>=24.0.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.6.0",
+    "mypy>=1.11.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[project.scripts]
+encode = "app.main:run_interactive_session"
