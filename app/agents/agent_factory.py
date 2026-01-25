@@ -37,7 +37,6 @@ def _create_agent_with_config(agent_name: str, agent_class: type, config: AgentC
     return agent_class(
         model_name=config.model_name,
         temperature=config.temperature,
-        provider=config.provider,
     )
 
 
