@@ -32,8 +32,8 @@ def speak(text: str, filename: str | None = None, play: bool = True) -> str:
     tts = gTTS(text=text, lang="en", slow=False)
     tts.save(filename)
 
-    # Play the audio file (macOS)
+    # Play the audio file (macOS) - afplay blocks until playback completes
     if play:
-        os.system(f'open "{filename}"')
+        os.system(f'afplay "{filename}"')
 
     return filename

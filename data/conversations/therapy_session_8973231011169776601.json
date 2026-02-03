@@ -1,0 +1,60 @@
+{
+  "conversation_id": "therapy_session_8973231011169776601",
+  "updated_at": "2026-02-03T22:52:17.451824",
+  "messages": [
+    {
+      "role": "user",
+      "content": "I am here to support you today"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello there! I'm here to support you too. How are you feeling today?",
+          "extras": {
+            "signature": "CuUDAXLI2nymUvWNJOxYFhW6bnP3MMl9Da7lDqGMHkAHMtOL+wMPF1OBwusZQOxwEduICg03lrANnxFc8JmdVNbCbVa0hMBpkmQSXr+pb73gur2/Dq6qceUzuRR1qPu0AVGhuaPfiUjp3OPGW5aoP8Tceg6mwhuXCkz/BQTio/nrzOy7VEHaWa+/w2FDVv7pjs7wkRrM9jK3P0frXveDVAYBO8pMWLgoB28xqIyMCtNiJ2pPauvgFc1QExlWUILS9i72sHlBqwJytw2J/HbaD7BZrd8/+PPApSJIEwdbZof40zb2R4i5PqmPE/AGqBIAUKMoaKLW5IdeGfFGUeDcl0aQkfPDvMhPblPtKiW1OObvmLzrzR5l9Ajl2uoyvbW8lmIXew9WDfxUDdb7Jox0yhZAjOaVIvPdxdUA0r1VHanG3UO03bjTgF2JCRjMtUez4q3icRQdUeSmS3yLdnWKHnWeaELrNr6/hnY579Pabm8mXDwCcuRx9yKPSf7i0SJkRlpscj35FBpwTz2DUpxBFHHftszorUH7MnzO/lfzx/s2WiDrilrrJ92N56aCjWNevhDBLntga3LY+RQD/dAZu5hsvsdycbd3Rt8lgH3/mZ7GZNXKhZO6fGmiUAf2Vo/VlhFbKrwyxVI="
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "Hello there! I'm here to support you too. How are you feeling today?"
+    },
+    {
+      "role": "assistant",
+      "content": "Hi there! I'm here to listen and support you. How are you feeling today?"
+    },
+    {
+      "role": "user",
+      "content": "I am here to listen in"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "It's wonderful that you're here to listen. To help me understand how I can best support you, could you tell me how you are feeling today?",
+          "extras": {
+            "signature": "CsEEAXLI2nzEs2BRkHkOKyDxMno2iORCQTp39AyaPPSrs1cb+XUineyeFciydbOc5UVRLG3P+wiSuPV/K0kedy6V2R4pZgASEUl4EfrbWWNgu3FkfF9/F1mU6fyGYiQRJYvuQq1ss8ponZSI3RCvr4+HIIIPitcMBLYXWqgeofITe1IPCBEuI9NI3fBBNT3wmzi/jjvP1M1cMgjS4/UdEAzt536gvszH+gqRaIxkKqjDwKLr/LGyiCcf5SAlEYQyyhYX97UXlnQr3kV9RuQeCJEHHMxY8Lo3FZWTQrG48iC2WlgcLXnp86LkkBWx3QtiDP6C0432oDc10eO3of8ic4aZgyQQ4ITBskgPutZmtrAaIBH0k/uHLzFCSQiGfAmWVMGr9PPz4yaYZxNRrObt5Y5wXDv1TVfypDhlVD1XavbYYBpAh67bX67Yupj6KsJuwzJo8Ab5MiB5TShiYCqYupnKt9y5RXb4H0cKN/xJ5dq0SXebm180JTvo++ia2M/WAhuucGGyX5nCeLxg1Bc7cwUEO2xlDbHFmjnwTBQ3s4Zthks96KW4K5LsBBQAe98iX6zMxvZybTbu9EG/rTM6ZF/kdAxo6M6cEcfoo+Rf40oAvB6G/qf4nSzWidxS4pT0zqZ1xwPBru6EhwlfGW52qcfHZPcdOCbhb7kLtJlfCmcoVfMBggUS+BhcjWBaPTaxiVhf7UjrHV0k7h/We1wKKwOkosgYDWU0KGLyW973xYMD6vd+xNR4YG/wSnBWIBYt/nZmpw=="
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "It's wonderful that you're here to listen. To help me understand how I can best support you, could you tell me how you are feeling today?"
+    },
+    {
+      "role": "assistant",
+      "content": "It's wonderful to have you here. To help me understand what's on your mind today, could you share a little about how you're feeling?"
+    }
+  ],
+  "metadata": {
+    "user_mood": "positive",
+    "user_intent": "talk",
+    "turn_count": 2
+  },
+  "created_at": "2026-02-03T22:51:49.736407"
+}

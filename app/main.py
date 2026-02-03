@@ -11,6 +11,7 @@ load_dotenv()
 from app.agents.agent_factory import create_multi_agent_workflow
 from app.workflows.multi_agentic_workflow import MultiAgentWorkflow
 from app.utils.tts import speak
+from app.utils.stt import listen
 
 logger = structlog.get_logger(__name__)
 
@@ -48,7 +49,7 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
 
     print("\n" + "=" * 50)
     print("Welcome to Encode Therapy System")
-    print("Type 'quit' or 'exit' to end the session")
+    print("Say 'quit' or 'exit' to end the session")
     print("=" * 50 + "\n")
 
     # Get initial greeting from orchestrator (empty message triggers greeting)
@@ -59,7 +60,7 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
     # Interactive conversation loop
     while True:
         try:
-            user_input = input("You: ").strip()
+            user_input = listen()
 
             if not user_input:
                 continue
