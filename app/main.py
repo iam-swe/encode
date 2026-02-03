@@ -10,6 +10,7 @@ load_dotenv()
 
 from app.agents.agent_factory import create_multi_agent_workflow
 from app.workflows.multi_agentic_workflow import MultiAgentWorkflow
+from app.utils.tts import speak
 
 logger = structlog.get_logger(__name__)
 
@@ -53,6 +54,7 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
     # Get initial greeting from orchestrator (empty message triggers greeting)
     initial_response = workflow.get_greeting()
     print(f"Therapist: {initial_response}\n")
+    speak(initial_response)
 
     # Interactive conversation loop
     while True:
@@ -63,11 +65,14 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
                 continue
 
             if user_input.lower() in ["quit", "exit", "bye", "goodbye"]:
-                print("\nTherapist: Take care of yourself. Remember, it's okay to reach out whenever you need support. Goodbye!\n")
+                goodbye_msg = "Take care of yourself. Remember, it's okay to reach out whenever you need support. Goodbye!"
+                print(f"\nTherapist: {goodbye_msg}\n")
+                speak(goodbye_msg)
                 break
 
             response = workflow.chat(user_input)
             print(f"\nTherapist: {response}\n")
+            speak(response)
 
         except KeyboardInterrupt:
             print("\n\nTherapist: Take care! Feel free to come back anytime.\n")
@@ -90,6 +95,7 @@ if __name__ == "__main__":
         query = " ".join(sys.argv[1:])
         response = run(query)
         print(f"\nTherapist: {response}\n")
+        speak(response)
     else:
         # Start a session with greeting first
         start_session()

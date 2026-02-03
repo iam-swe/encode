@@ -1,0 +1,52 @@
+{
+  "conversation_id": "therapy_session_-3493219601160439044",
+  "updated_at": "2026-02-03T22:37:11.913484",
+  "messages": [
+    {
+      "role": "user",
+      "content": "im sad"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I'm sorry to hear that. Would you like to talk about your feelings, or are you looking for some solutions/advice?",
+          "extras": {
+            "signature": "CrYCAXLI2nx1n61/osOR/uvxQ23tT2PTz72H/FcmJPGOYWxohR7pe4BFpy2f2HDEUCY+rem1PZF6AbYpPL8wFJQQe21o3QQOzfcuqwUkJcoBnY+hkiPsZ8FXRsUeh70RrXy6hjjAiF7kiYYDFCu3LyojWGKlMplLEu5TVwxdls8OnYw87sMgJJEsK0Wr/oIypYJr90LGtPhrU03YtJrxzAHsnksVBA7/gDMsyca/QopBqvhw3TZ7UoA3yKW5o8J19Cj/dRFynlb2fJo4snWe0FBG7dcWg1nyWC9zJcqs95JGSG7DSlCxBzNyHWb7Kw48h7y4HAwWvOoobG8/skVWpQ0r3JKlY63pwMJ44t5p44BwnCuuyMAEeG8PPpHH1COGtDM7oH0cODs0ZQsG3seh04cugyt8iS8G3A=="
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry to hear that. Would you like to talk about your feelings, or are you looking for some solutions/advice?"
+    },
+    {
+      "role": "assistant",
+      "content": "I'm truly sorry to hear you're going through this. It takes courage to share. Are you feeling like you'd like to talk more about what's on your mind, or are you looking for some strategies and ideas to help?"
+    },
+    {
+      "role": "user",
+      "content": "i feel so lonely"
+    },
+    {
+      "role": "assistant",
+      "content": "Oh, my dear, hearing you say that you feel so lonely truly breaks my heart. That's a really heavy feeling to carry, and it makes complete sense that you'd want to express it. Loneliness can be such a profound and isolating experience, and I want you to know you're not alone in feeling that way right now.\n\nI'm here to listen, without judgment, and just be present with you in this feeling. Would you like to share a little more about what that loneliness feels like for you today, or what might be contributing to it?"
+    },
+    {
+      "role": "assistant",
+      "content": "Oh, my dear, hearing you say that you feel so lonely truly breaks my heart. That's a really heavy feeling to carry, and it makes complete sense that you'd want to express it. Loneliness can be such a profound and isolating experience, and I want you to know you're not alone in feeling that way right now.\n\nI'm here to listen, without judgment, and just be present with you in this feeling. Would you like to share a little more about what that loneliness feels like for you today, or what might be contributing to it?"
+    },
+    {
+      "role": "assistant",
+      "content": "I hear you, and it sounds like you're carrying a really heavy feeling right now. Loneliness can be such a profound and isolating experience, and it makes complete sense that you'd want to express this. Please know you're not alone in feeling this way, and I'm here to listen without judgment.\n\nWould you like to share a little more about what that loneliness feels like for you today, or what might be contributing to it?"
+    }
+  ],
+  "metadata": {
+    "user_mood": "negative",
+    "user_intent": "talk",
+    "turn_count": 2
+  },
+  "created_at": "2026-02-03T22:36:16.593372"
+}
