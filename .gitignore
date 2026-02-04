@@ -17,3 +17,7 @@ __pycache__/
 
 # --- OS ---
 .DS_Store
+
+# conversations
+data/conversations/
+!data/conversations/README.md
