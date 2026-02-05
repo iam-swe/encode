@@ -8,23 +8,8 @@ import speech_recognition as sr
 
 load_dotenv()
 
-# Use absolute imports
 from app.main import create_app
 from app.utils.tts import speak
-
-# Create workflow once
-workflow = None
-
-def init_workflow():
-    global workflow
-    if workflow is None:
-        workflow = create_app()
-        # Get initial greeting
-        greeting = workflow.get_greeting()
-        greeting_audio = speak(greeting, play=False)
-        # Use dictionary format
-        return [{"role": "assistant", "content": greeting}], greeting_audio
-    return [], None
 
 def transcribe_audio(audio_path):
     """Convert audio file to text"""
@@ -39,25 +24,23 @@ def transcribe_audio(audio_path):
         except:
             return ""
 
-def chat(audio_path, history):
+def chat(audio_path, history, workflow):
     """Process voice and return response"""
     if not audio_path:
         return history, None, None
-    
-    global workflow
     
     # Get text from audio
     user_text = transcribe_audio(audio_path)
     if not user_text:
         return history, None, None
     
-    # Get response from your agentic workflow
+    # Get response from workflow
     response = workflow.chat(user_text)
     
     # Convert to speech
     audio_file = speak(response, play=False)
     
-    # Update chat with dictionary format
+    # Update chat
     history = history + [
         {"role": "user", "content": user_text},
         {"role": "assistant", "content": response}
@@ -65,22 +48,52 @@ def chat(audio_path, history):
     
     return history, audio_file, None
 
+def init_session():
+    """Initialize new session with greeting"""
+    workflow = create_app()
+    greeting = workflow.get_greeting()
+    greeting_audio = speak(greeting, play=False)
+    initial_history = [{"role": "assistant", "content": greeting}]
+    return initial_history, greeting_audio, workflow
+
 # UI
 with gr.Blocks() as demo:
     gr.Markdown("# 🧠 Encode Therapy System")
     
+    # State management
+    workflow = gr.State()
+    
     chatbot = gr.Chatbot(height=400)
-    audio_input = gr.Audio(sources=["microphone"], type="filepath")
-    audio_output = gr.Audio(autoplay=True)
     
-    # Load greeting on start
-    demo.load(fn=init_workflow, outputs=[chatbot, audio_output])
+    with gr.Row():
+        with gr.Column():
+            gr.Markdown("### 🎤 Your Voice")
+            audio_input = gr.Audio(
+                sources=["microphone"], 
+                type="filepath",
+                label="Record your message",
+                container=True
+            )
+        
+        with gr.Column():
+            gr.Markdown("### 🧠 Encode")
+            audio_output = gr.Audio(
+                autoplay=True,
+                label="Listen to response",
+                container=True
+            )
     
-    # Process voice input - now clears the audio input automatically
+    # Initialize on load
+    demo.load(
+        fn=init_session,
+        outputs=[chatbot, audio_output, workflow]
+    )
+    
+    # Handle recording
     audio_input.stop_recording(
         fn=chat,
-        inputs=[audio_input, chatbot],
-        outputs=[chatbot, audio_output, audio_input]
+        inputs=[audio_input, chatbot, workflow],
+        outputs=[chatbot, audio_output, audio_input],
     )
 
 if __name__ == "__main__":
