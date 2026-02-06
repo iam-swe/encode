@@ -1,5 +1,5 @@
 """
-Simple Gradio web interface for Encode Therapy System.
+Simple Gradio web interface for Aura.
 """
 
 import gradio as gr
@@ -58,7 +58,7 @@ def init_session():
 
 # UI
 with gr.Blocks() as demo:
-    gr.Markdown("# 🧠 Encode Therapy System")
+    gr.Markdown("# ❤️ Aura")
     
     # State management
     workflow = gr.State()
@@ -76,7 +76,7 @@ with gr.Blocks() as demo:
             )
         
         with gr.Column():
-            gr.Markdown("### 🧠 Encode")
+            gr.Markdown("### ❤️ Aura")
             audio_output = gr.Audio(
                 autoplay=True,
                 label="Listen to response",

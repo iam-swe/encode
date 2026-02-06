@@ -1,5 +1,5 @@
 """
-Agents module for the Encode Therapy System.
+Agents module for the Aura.
 """
 
 from .guardrails_agent.guardrails_agent import GuardrailsAgent
