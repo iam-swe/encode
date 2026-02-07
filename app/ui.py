@@ -2,11 +2,17 @@
 Simple Gradio web interface for Aura.
 """
 
+import os
 import gradio as gr
 from dotenv import load_dotenv
 import speech_recognition as sr
 
 load_dotenv()
+
+print("=" * 60)
+print(f"DEBUG: GOOGLE_API_KEY exists: {'GOOGLE_API_KEY' in os.environ}")
+print(f"DEBUG: GOOGLE_API_KEY value: {bool(os.getenv('GOOGLE_API_KEY'))}")
+print("=" * 60)
 
 from app.main import create_app
 from app.utils.tts import speak
