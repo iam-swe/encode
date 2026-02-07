@@ -5,7 +5,6 @@ Main entry point for the Aura Therapy System.
 import structlog
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 from app.agents.agent_factory import create_multi_agent_workflow
@@ -52,12 +51,10 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
     print("Say 'quit' or 'exit' to end the session")
     print("=" * 50 + "\n")
 
-    # Get initial greeting from orchestrator (empty message triggers greeting)
     initial_response = workflow.get_greeting()
     print(f"Therapist: {initial_response}\n")
     speak(initial_response)
 
-    # Interactive conversation loop
     while True:
         try:
             user_input = listen()
@@ -92,12 +89,10 @@ if __name__ == "__main__":
     import sys
 
     if len(sys.argv) > 1:
-        # Get query from command line arguments
         query = " ".join(sys.argv[1:])
         response = run(query)
         print(f"\nTherapist: {response}\n")
         speak(response)
     else:
-        # Start a session with greeting first
         start_session()
 

@@ -22,11 +22,9 @@ class GuardrailsNode:
     def process(self, state: TherapyState) -> Dict[str, Any]:
         """Process the current response through guardrails."""
         try:
-            # Get latest AI response
             response_to_check = ""
             for msg in reversed(state.get("messages", [])):
                 if isinstance(msg, AIMessage) and msg.content:
-                    # Skip tool calls, get actual response
                     if not getattr(msg, "tool_calls", None):
                         response_to_check = msg.content
                         break
@@ -34,11 +32,9 @@ class GuardrailsNode:
             if not response_to_check:
                 return {"guardrail_approved": True}
 
-            # Check through guardrails
             result = self.guardrails_agent.check_response_sync(response_to_check)
             checked_response = result.get("checked_response", response_to_check)
 
-            # Update the last AI message with checked response
             new_messages = list(state.get("messages", []))
             for i in range(len(new_messages) - 1, -1, -1):
                 if isinstance(new_messages[i], AIMessage) and not getattr(new_messages[i], "tool_calls", None):

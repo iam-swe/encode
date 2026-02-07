@@ -27,14 +27,12 @@ class OrchestratorNode:
 
             from app.tools.tool_registry import get_all_tools
 
-            # Get latest user message
             user_msg = ""
             for msg in reversed(state.get("messages", [])):
                 if isinstance(msg, HumanMessage):
                     user_msg = msg.content
                     break
 
-            # Detect mood and intent if not set
             current_mood = state.get("user_mood", "unknown")
             current_intent = state.get("user_intent", "unknown")
 
@@ -44,10 +42,6 @@ class OrchestratorNode:
             if current_intent == "unknown" and user_msg:
                 current_intent = detect_intent(user_msg)
 
-            # Get conversation context
-            context = get_conversation_context(state)
-
-            # Get tools and create agent
             tools = get_all_tools()
             prompt = self.orchestrator_agent.get_prompt(state)
 
@@ -56,14 +50,6 @@ class OrchestratorNode:
                 tools,
                 prompt=prompt,
             )
-
-            # Prepare state for orchestrator
-            orch_state = {
-                **state,
-                "user_mood": current_mood,
-                "user_intent": current_intent,
-                "session_summary": context,
-            }
 
             result = agent.invoke({"messages": state.get("messages", [])})
 

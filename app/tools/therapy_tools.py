@@ -28,7 +28,6 @@ def get_llm(temperature: float = 0.7) -> Any:
     return ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=temperature)
 
 
-# Prompt templates
 POSITIVE_PROMPT = """You are a warm, celebratory therapeutic companion specializing in positive emotional support.
 
 YOUR ROLE:
@@ -137,14 +136,12 @@ def create_therapy_function(prompt_template: str) -> callable:
     return therapy_function
 
 
-# Create tool functions
 positive_therapy_fn = create_therapy_function(POSITIVE_PROMPT)
 neutral_therapy_fn = create_therapy_function(NEUTRAL_PROMPT)
 negative_therapy_fn = create_therapy_function(NEGATIVE_PROMPT)
 problem_solver_fn = create_therapy_function(PROBLEM_SOLVER_PROMPT)
 
 
-# Create structured tools
 positive_therapy_tool = StructuredTool.from_function(
     func=positive_therapy_fn,
     name="positive_therapy",

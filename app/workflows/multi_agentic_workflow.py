@@ -61,7 +61,6 @@ class MultiAgentWorkflow:
         self.config = {"configurable": {"thread_id": self.thread_id}}
         self._state: Optional[TherapyState] = None
 
-        # Load existing conversation if available
         self._load_conversation_history()
 
         logger.info("MultiAgentWorkflow initialized", conversation_id=self.conversation_id)
@@ -71,12 +70,10 @@ class MultiAgentWorkflow:
 
         workflow = StateGraph(TherapyState)
 
-        # Add nodes
         workflow.add_node("orchestrator", self.orchestrator_node.process)
         workflow.add_node("guardrails", self.guardrails_node.process)
         workflow.add_node("synthesizer", self.synthesizer_node.process)
 
-        # Define edges: linear flow through the pipeline
         workflow.add_edge(START, "orchestrator")
         workflow.add_edge("orchestrator", "guardrails")
         workflow.add_edge("guardrails", "synthesizer")
@@ -97,7 +94,6 @@ class MultiAgentWorkflow:
                     messages.append(AIMessage(content=msg.get("content", "")))
             self._state["messages"] = messages
 
-            # Load metadata
             conversation_data = self.conversation_store.load_conversation(self.conversation_id)
             if conversation_data and conversation_data.get("metadata"):
                 metadata = conversation_data["metadata"]
@@ -152,22 +148,17 @@ class MultiAgentWorkflow:
         try:
             state = self._get_current_state()
 
-            # Add user message
             state["messages"] = list(state.get("messages", [])) + [
                 HumanMessage(content=user_message)
             ]
             state["user_query"] = user_message
 
-            # Invoke workflow
             final_state = await self.workflow.ainvoke(state, self.config)
 
-            # Update internal state
             self._state = dict(final_state)
 
-            # Save conversation to file
             self._save_conversation()
 
-            # Extract response
             response = self._extract_response(final_state)
 
             return {
@@ -189,22 +180,17 @@ class MultiAgentWorkflow:
         try:
             state = self._get_current_state()
 
-            # Add user message
             state["messages"] = list(state.get("messages", [])) + [
                 HumanMessage(content=user_message)
             ]
             state["user_query"] = user_message
 
-            # Invoke workflow
             final_state = self.workflow.invoke(state, self.config)
 
-            # Update internal state
             self._state = dict(final_state)
 
-            # Save conversation to file
             self._save_conversation()
 
-            # Extract response
             response = self._extract_response(final_state)
 
             return {
@@ -223,11 +209,9 @@ class MultiAgentWorkflow:
 
     def _extract_response(self, state: TherapyState) -> str:
         """Extract the final response from state."""
-        # First check current_response
         if state.get("current_response"):
             return state["current_response"]
 
-        # Then check messages for last AI message
         for msg in reversed(state.get("messages", [])):
             if isinstance(msg, AIMessage) and msg.content:
                 if not getattr(msg, "tool_calls", None):
@@ -245,7 +229,6 @@ class MultiAgentWorkflow:
         try:
             model = self.orchestrator_node.orchestrator_agent.model
 
-            # Simple direct call to get greeting - no tools needed
             response = model.invoke(
                 "You are a warm, supportive therapy assistant. Generate a brief, welcoming greeting for a new user starting a therapy session. Ask how they're feeling today. Keep it to 1-2 sentences."
             )

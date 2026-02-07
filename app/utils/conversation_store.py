@@ -14,7 +14,6 @@ import structlog
 
 logger = structlog.get_logger(__name__)
 
-# Default storage directory
 STORAGE_DIR = Path(__file__).parent.parent.parent / "data" / "conversations"
 
 
@@ -29,7 +28,6 @@ class ConversationStore:
         """Create storage directory if it doesn't exist."""
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         
-        # Create .gitkeep to track the directory
         gitkeep = self.storage_dir / ".gitkeep"
         if not gitkeep.exists():
             gitkeep.touch()
@@ -61,7 +59,6 @@ class ConversationStore:
             "metadata": metadata or {},
         }
 
-        # Load existing data to preserve created_at
         if file_path.exists():
             try:
                 with open(file_path, "r") as f:
@@ -141,7 +138,6 @@ class ConversationStore:
 
         messages.append(message)
 
-        # Load existing metadata
         existing_data = self.load_conversation(conversation_id)
         conv_metadata = existing_data.get("metadata", {}) if existing_data else {}
 
@@ -208,7 +204,6 @@ class ConversationStore:
             except (json.JSONDecodeError, IOError):
                 continue
 
-        # Sort by updated_at descending
         conversations.sort(key=lambda x: x.get("updated_at", ""), reverse=True)
         return conversations
 
@@ -227,7 +222,6 @@ class ConversationStore:
         return count
 
 
-# Global store instance
 _store: Optional[ConversationStore] = None
 
 

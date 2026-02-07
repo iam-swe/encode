@@ -30,18 +30,14 @@ def chat(audio_path, history, workflow):
     if not audio_path:
         return history, None, None
     
-    # Get text from audio
     user_text = transcribe_audio(audio_path)
     if not user_text:
         return history, None, None
     
-    # Get response from workflow
     response = workflow.chat(user_text)
     
-    # Convert to speech
     audio_file = speak(response, play=False)
     
-    # Update chat
     history = history + [
         {"role": "user", "content": user_text},
         {"role": "assistant", "content": response}
@@ -57,11 +53,9 @@ def init_session():
     initial_history = [{"role": "assistant", "content": greeting}]
     return initial_history, greeting_audio, workflow
 
-# UI
 with gr.Blocks() as demo:
     gr.Markdown("# ❤️ Aura")
     
-    # State management
     workflow = gr.State()
     
     chatbot = gr.Chatbot(height=400)
@@ -84,13 +78,11 @@ with gr.Blocks() as demo:
                 container=True
             )
     
-    # Initialize on load
     demo.load(
         fn=init_session,
         outputs=[chatbot, audio_output, workflow]
     )
     
-    # Handle recording
     audio_input.stop_recording(
         fn=chat,
         inputs=[audio_input, chatbot, workflow],

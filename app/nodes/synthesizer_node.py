@@ -22,7 +22,6 @@ class SynthesizerNode:
     def process(self, state: TherapyState) -> Dict[str, Any]:
         """Process and polish the current response."""
         try:
-            # Get latest AI response
             response_to_polish = state.get("current_response", "")
 
             if not response_to_polish:
@@ -35,18 +34,15 @@ class SynthesizerNode:
             if not response_to_polish:
                 response_to_polish = "I'm here to listen. How are you feeling?"
 
-            # Synthesize the response
             result = self.synthesizer_agent.synthesize_sync(response_to_polish)
             polished_response = result.get("polished_response", response_to_polish)
 
-            # Update the last AI message with polished response
             new_messages = list(state.get("messages", []))
             for i in range(len(new_messages) - 1, -1, -1):
                 if isinstance(new_messages[i], AIMessage) and not getattr(new_messages[i], "tool_calls", None):
                     new_messages[i] = AIMessage(content=polished_response)
                     break
 
-            # Increment turn count
             new_turn_count = state.get("turn_count", 0) + 1
 
             return {
