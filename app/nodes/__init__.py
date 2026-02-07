@@ -1,5 +1,5 @@
 """
-Nodes module for the Encode Therapy System.
+Nodes module for the Aura Therapy System.
 """
 
 from .guardrails_node import GuardrailsNode

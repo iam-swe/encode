@@ -1,5 +1,5 @@
 """
-Tools module for the Encode Therapy System.
+Tools module for the Aura Therapy System.
 """
 
 from .therapy_tools import (

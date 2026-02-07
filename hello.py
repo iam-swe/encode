@@ -1,5 +1,5 @@
 def main():
-    print("Hello from encode!")
+    print("Hello from Aura!")
 
 
 if __name__ == "__main__":

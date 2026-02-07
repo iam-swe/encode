@@ -1,5 +1,5 @@
 """
-Workflows module for the Encode Therapy System.
+Workflows module for the Aura Therapy System.
 """
 
 from .multi_agentic_workflow import MultiAgentWorkflow

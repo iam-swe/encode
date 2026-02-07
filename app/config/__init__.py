@@ -1,5 +1,5 @@
 """
-Config module for the Encode Therapy System.
+Config module for the Aura Therapy System.
 """
 
 from .app_config import AppConfig, AppConfigLoader

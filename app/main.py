@@ -1,5 +1,5 @@
 """
-Main entry point for the Encode Therapy System.
+Main entry point for the Aura Therapy System.
 """
 
 import structlog
@@ -22,9 +22,9 @@ def create_app(conversation_id: str | None = None) -> MultiAgentWorkflow:
     Args:
         conversation_id: Optional conversation ID to resume an existing conversation
     """
-    logger.info("Initializing Encode Therapy System")
+    logger.info("Initializing Aura Therapy System")
     workflow = create_multi_agent_workflow(conversation_id)
-    logger.info("Encode Therapy System initialized successfully")
+    logger.info("Aura Therapy System initialized successfully")
     return workflow
 
 
@@ -48,7 +48,7 @@ def run_interactive_session(conversation_id: str | None = None) -> None:
     workflow = create_app(conversation_id)
 
     print("\n" + "=" * 50)
-    print("Welcome to Encode Therapy System")
+    print("Welcome to Aura Therapy System")
     print("Say 'quit' or 'exit' to end the session")
     print("=" * 50 + "\n")
 

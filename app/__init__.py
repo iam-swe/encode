@@ -1,5 +1,5 @@
 """
-Encode Therapy System - Multi-Agent Therapeutic Support Platform
+Aura Therapy System - Multi-Agent Therapeutic Support Platform
 
-A multi-agent therapy system using LangGraph with an architecture
+A multi-agent therapy system using LangGraph
 """

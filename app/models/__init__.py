@@ -1,5 +1,5 @@
 """
-Models module for the Encode Therapy System.
+Models module for the Aura Therapy System.
 """
 
 from .models import ChatRequest, ChatResponse, TherapyMessage

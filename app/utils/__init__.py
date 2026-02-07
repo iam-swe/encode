@@ -1,5 +1,5 @@
 """
-Utils module for the Encode Therapy System.
+Utils module for the Aura Therapy System.
 """
 
 from .conversation_store import ConversationStore, get_conversation_store
