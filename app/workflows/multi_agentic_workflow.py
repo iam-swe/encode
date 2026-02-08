@@ -8,6 +8,7 @@ in a coordinated manner
 import os
 from typing import Any, Dict, List, Optional
 
+from opik import track
 import structlog
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
@@ -175,6 +176,7 @@ class MultiAgentWorkflow:
                 "error": str(e),
             }
 
+    @track(name="Multi_agent_workflow_process_query")
     def process_query(self, user_message: str) -> Dict[str, Any]:
         """Process a query synchronously through the workflow."""
         try:

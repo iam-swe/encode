@@ -10,6 +10,7 @@ from typing import Any
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import StructuredTool, tool
 from langchain_google_genai import ChatGoogleGenerativeAI
+from opik import track
 from pydantic import BaseModel, Field
 
 
@@ -118,9 +119,9 @@ CONVERSATION CONTEXT:
 Remember: Guide them to their own solutions. Keep responses under 150 words. End with a clarifying question or suggested next step."""
 
 
-def create_therapy_function(prompt_template: str) -> callable:
+def create_therapy_function(prompt_template: str, tool_name: str) -> callable:
     """Factory function to create therapy tool functions."""
-
+    @track(name=tool_name)
     def therapy_function(message: str, context: str = "") -> str:
         llm = get_llm()
         prompt = prompt_template.format(context=context)
@@ -129,17 +130,16 @@ def create_therapy_function(prompt_template: str) -> callable:
             SystemMessage(content=prompt),
             HumanMessage(content=message),
         ]
-
         response = llm.invoke(messages)
         return response.content
 
     return therapy_function
 
 
-positive_therapy_fn = create_therapy_function(POSITIVE_PROMPT)
-neutral_therapy_fn = create_therapy_function(NEUTRAL_PROMPT)
-negative_therapy_fn = create_therapy_function(NEGATIVE_PROMPT)
-problem_solver_fn = create_therapy_function(PROBLEM_SOLVER_PROMPT)
+positive_therapy_fn = create_therapy_function(POSITIVE_PROMPT, "positive_tool")
+neutral_therapy_fn = create_therapy_function(NEUTRAL_PROMPT, "neutral_tool")
+negative_therapy_fn = create_therapy_function(NEGATIVE_PROMPT, "negative_tool")
+problem_solver_fn = create_therapy_function(PROBLEM_SOLVER_PROMPT, "problem_solver_tool")
 
 
 positive_therapy_tool = StructuredTool.from_function(

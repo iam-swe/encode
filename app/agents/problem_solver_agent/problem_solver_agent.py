@@ -88,7 +88,6 @@ class ProblemSolverAgent(BaseAgent):
                 SystemMessage(content=prompt),
                 HumanMessage(content=query),
             ]
-
             response = await self.model.ainvoke(messages)
 
             return {

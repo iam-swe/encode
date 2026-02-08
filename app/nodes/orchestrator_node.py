@@ -4,11 +4,15 @@ Orchestrator Node for the Therapy Workflow.
 
 from typing import Any, Dict
 
+from opik import track
 import structlog
 
 from app.agents.base_agent import BaseAgent
 from app.agents.state import TherapyState, get_conversation_context
 from app.utils.mood_detector import detect_intent, detect_mood
+from langchain_core.messages import HumanMessage
+from langgraph.prebuilt import create_react_agent
+from app.tools.tool_registry import get_all_tools
 
 logger = structlog.get_logger(__name__)
 
@@ -18,14 +22,11 @@ class OrchestratorNode:
 
     def __init__(self, orchestrator_agent: BaseAgent) -> None:
         self.orchestrator_agent = orchestrator_agent
-
+        
+    @track(name="Orchestrator_agent")
     def process(self, state: TherapyState) -> Dict[str, Any]:
         """Process the current state through the orchestrator."""
         try:
-            from langchain_core.messages import HumanMessage
-            from langgraph.prebuilt import create_react_agent
-
-            from app.tools.tool_registry import get_all_tools
 
             user_msg = ""
             for msg in reversed(state.get("messages", [])):

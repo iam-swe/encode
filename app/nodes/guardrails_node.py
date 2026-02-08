@@ -4,6 +4,7 @@ Guardrails Node for the Therapy Workflow.
 
 from typing import Any, Dict
 
+from opik import track
 import structlog
 from langchain_core.messages import AIMessage
 
@@ -18,7 +19,8 @@ class GuardrailsNode:
 
     def __init__(self, guardrails_agent: GuardrailsAgent) -> None:
         self.guardrails_agent = guardrails_agent
-
+    
+    @track(name="Guardrails_agent")
     def process(self, state: TherapyState) -> Dict[str, Any]:
         """Process the current response through guardrails."""
         try:

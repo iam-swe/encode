@@ -4,6 +4,7 @@ Synthesizer Node for the Therapy Workflow.
 
 from typing import Any, Dict
 
+from opik import track
 import structlog
 from langchain_core.messages import AIMessage
 
@@ -19,6 +20,7 @@ class SynthesizerNode:
     def __init__(self, synthesizer_agent: SynthesizerAgent) -> None:
         self.synthesizer_agent = synthesizer_agent
 
+    @track(name="Synthesizer_agent")
     def process(self, state: TherapyState) -> Dict[str, Any]:
         """Process and polish the current response."""
         try:
