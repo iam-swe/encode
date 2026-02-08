@@ -49,11 +49,14 @@ def _create_agent_tool_fn(agent_class, tool_name: str):
             SystemMessage(content=prompt),
             HumanMessage(content=message),
         ]
-        response = agent.model.invoke(messages)
+        response = _call_llm(agent.model, messages)
         return response.content
 
     return agent_tool_fn
 
+@track(name="llm_call")
+def _call_llm(model, messages):
+    return model.invoke(messages)
 
 def _build_tools():
     """Build all agent tools. Imports are deferred to avoid circular imports."""
