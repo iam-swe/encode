@@ -12,7 +12,7 @@ from app.agents.state import TherapyState, get_conversation_context
 from app.utils.mood_detector import detect_intent, detect_mood
 from langchain_core.messages import HumanMessage
 from langgraph.prebuilt import create_react_agent
-from app.tools.tool_registry import get_all_tools
+from app.tools.therapy_tools import get_agent_tools
 
 logger = structlog.get_logger(__name__)
 
@@ -43,7 +43,7 @@ class OrchestratorNode:
             if current_intent == "unknown" and user_msg:
                 current_intent = detect_intent(user_msg)
 
-            tools = get_all_tools()
+            tools = get_agent_tools()
             prompt = self.orchestrator_agent.get_prompt(state)
 
             agent = create_react_agent(

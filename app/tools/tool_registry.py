@@ -20,24 +20,14 @@ def get_tool(name: str) -> Any:
 
 
 def get_all_tools() -> List[BaseTool]:
-    """Get all registered tools."""
-    from app.tools.therapy_tools import (
-        negative_therapy_tool,
-        neutral_therapy_tool,
-        positive_therapy_tool,
-        problem_solver_tool,
-    )
+    """Get all registered agent tools."""
+    from app.tools.therapy_tools import get_agent_tools
 
-    return [
-        positive_therapy_tool,
-        neutral_therapy_tool,
-        negative_therapy_tool,
-        problem_solver_tool,
-    ]
+    return get_agent_tools()
 
 
 def initialize_tools() -> None:
-    """Initialize and register all tools."""
+    """Initialize and register all agent tools."""
     from app.agents.agent_types import (
         NEGATIVE_AGENT_NAME,
         NEUTRAL_AGENT_NAME,
@@ -45,14 +35,9 @@ def initialize_tools() -> None:
         PROBLEM_SOLVER_NAME,
     )
 
-    from app.tools.therapy_tools import (
-        negative_therapy_tool,
-        neutral_therapy_tool,
-        positive_therapy_tool,
-        problem_solver_tool,
-    )
+    from app.tools.therapy_tools import get_agent_tools
 
-    register_tool(POSITIVE_AGENT_NAME, positive_therapy_tool)
-    register_tool(NEUTRAL_AGENT_NAME, neutral_therapy_tool)
-    register_tool(NEGATIVE_AGENT_NAME, negative_therapy_tool)
-    register_tool(PROBLEM_SOLVER_NAME, problem_solver_tool)
+    tools = get_agent_tools()
+    names = [POSITIVE_AGENT_NAME, NEUTRAL_AGENT_NAME, NEGATIVE_AGENT_NAME, PROBLEM_SOLVER_NAME]
+    for name, tool in zip(names, tools):
+        register_tool(name, tool)

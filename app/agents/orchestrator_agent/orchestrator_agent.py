@@ -14,7 +14,7 @@ from app.agents.agent_types import ORCHESTRATOR_NAME
 from app.agents.base_agent import BaseAgent
 from app.agents.llm_models import LLMModels
 from app.agents.state import TherapyState
-from app.tools.tool_registry import get_tool
+from app.tools.therapy_tools import get_agent_tools
 
 logger = structlog.get_logger(__name__)
 
@@ -33,15 +33,15 @@ YOUR PRIMARY RESPONSIBILITIES:
 1. GREET users warmly on first interaction
 2. ASSESS their emotional state (positive, neutral, or negative)
 3. DETERMINE their intent (want to talk vs. want solutions)
-4. ROUTE to appropriate therapy agent using tools
+4. ROUTE to the appropriate specialized agent
 5. MAINTAIN conversation continuity
 
 CONVERSATION FLOW:
 1. First message: Greet warmly, ask how they're feeling
 2. After mood shared: Acknowledge and ask "Would you like to talk about your feelings, or are you looking for some solutions/advice?"
-3. Based on response: Use appropriate tool
+3. Based on response: Delegate to the appropriate agent
 
-TOOL SELECTION GUIDE:
+AGENT SELECTION GUIDE:
 - POSITIVE mood (happy, excited, grateful, good) → positive_therapy
 - NEUTRAL mood (okay, fine, so-so, alright) → neutral_therapy
 - NEGATIVE mood (sad, anxious, stressed, overwhelmed, frustrated) → negative_therapy
@@ -53,8 +53,8 @@ CURRENT STATE:
 - Phase: {phase}
 
 IMPORTANT:
-- Be brief in your own responses - let therapy tools do the work
-- Always use a tool when the user shares something substantive
+- Be brief in your own responses - let the specialized agents do the work
+- Always delegate to an agent when the user shares something substantive
 - Build conversation context from the history
 - If mood/intent unclear, ask clarifying questions first
 
@@ -79,20 +79,8 @@ class OrchestratorAgent(BaseAgent):
         )
 
     def get_tools(self) -> List[BaseTool]:
-        """Get therapy tools for the orchestrator."""
-        from app.agents.agent_types import (
-            NEGATIVE_AGENT_NAME,
-            NEUTRAL_AGENT_NAME,
-            POSITIVE_AGENT_NAME,
-            PROBLEM_SOLVER_NAME,
-        )
-
-        tools = []
-        for tool_name in [POSITIVE_AGENT_NAME, NEUTRAL_AGENT_NAME, NEGATIVE_AGENT_NAME, PROBLEM_SOLVER_NAME]:
-            tool = get_tool(tool_name)
-            if tool:
-                tools.append(tool)
-        return tools
+        """Get agent-backed tools for the orchestrator."""
+        return get_agent_tools()
 
     def get_result_key(self) -> str:
         return "orchestrator_result"
